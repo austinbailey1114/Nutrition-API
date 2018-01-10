@@ -28,6 +28,14 @@ class ComposerStaticInit407488379fd76a6ce0df9bc5e2ad419d
         array (
             'FastRoute\\' => 10,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -50,6 +58,14 @@ class ComposerStaticInit407488379fd76a6ce0df9bc5e2ad419d
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
