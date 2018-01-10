@@ -7,5 +7,4 @@ $app->group('/foods', function() {
 
 $app->group('/search', function() {
 	$this->get('/{name}', 'FoodController:searchFoodByName');
-
 });

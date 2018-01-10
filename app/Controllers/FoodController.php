@@ -13,11 +13,23 @@ class FoodController extends Controller {
 	public function searchFoodByName($request, $response, $args) {
 		$name = $args['name'];
 		$query = new Query();
-		$foods = $query->table('foods')->search('name', urlencode('chicken breast'))->execute();
+		$foods = $query->table('foods')->search('name', $name)->execute();
 
-		return $response->withJson($foods);
+		return $response->withJson($foods, 200, JSON_PRETTY_PRINT);
 	}
-	public function postFood($request, $response, $args) {
-		
+	public function postFood($request, $response) {
+		$data = $request->getParsedBody();
+
+		$query = new Query();
+		$result = $query->table('foods')
+						->insert(array('name', 'serving_unit', 'serving_value', 'calories', 'fat', 'carbohydrate', 'protein'),
+								 array($data['name'], $data['serving_unit'], $data['serving_value'], $data['calories'], $data['fat'], $data['carbohydrate'], $data['protein']))
+						->execute();
+		if ($result) {
+			echo "New food created successfully";
+		} else {
+			echo "Unable to add food";
+		}
+
 	}
 }
