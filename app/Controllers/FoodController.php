@@ -8,7 +8,7 @@ class FoodController extends Controller {
 
 		$query = new Query();
 		$food = $query->table('foods')->where('id', '=', $id)->execute();
-		return $response->withJson($food);
+		return $response->withJson($food, 200, JSON_PRETTY_PRINT);
 	}
 	public function searchFoodByName($request, $response, $args) {
 		$name = $args['name'];
@@ -20,15 +20,19 @@ class FoodController extends Controller {
 	public function postFood($request, $response) {
 		$data = $request->getParsedBody();
 
+		if (count($data) != 7) {
+			echo "400 error: Please ensure all necessary variables are defined";
+			return $response->withStatus(400);
+		}
+
 		$query = new Query();
 		$result = $query->table('foods')
 						->insert(array('name', 'serving_unit', 'serving_value', 'calories', 'fat', 'carbohydrate', 'protein'),
 								 array($data['name'], $data['serving_unit'], $data['serving_value'], $data['calories'], $data['fat'], $data['carbohydrate'], $data['protein']))
 						->execute();
 		if ($result) {
-			echo "New food created successfully";
-		} else {
-			echo "Unable to add food";
+			echo "200: New food created successfully";
+			return $response->withStatus(200);
 		}
 
 	}
