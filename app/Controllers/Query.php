@@ -232,6 +232,23 @@ class Query {
 		return $stmt->execute();
 	}
 
+	/* **** Search **** */
+
+	//executes with exec_select();
+	public function search($column, $phrase) {
+		$this->sql = "SELECT * FROM foods WHERE MATCH($column) AGAINST(?) ORDER BY MATCH($column) AGAINST(?) DESC";
+
+		$this->command = 's';
+
+		$this->data[] = urldecode($phrase);
+		$this->data[] = urldecode($phrase);
+		$this->fields[] = $column;
+		$this->fields[] = $column;
+
+		return $this;
+
+	}
+
 	/* **** Multi-purpose **** 
 	These functions can be used on multiple types of MySQL statements 
 	*/
